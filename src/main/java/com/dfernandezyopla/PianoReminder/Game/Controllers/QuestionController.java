@@ -1,11 +1,10 @@
 package com.dfernandezyopla.PianoReminder.Game.Controllers;
 
 import com.dfernandezyopla.PianoReminder.Game.Entities.HistoryQuestion;
+import com.dfernandezyopla.PianoReminder.Game.Entities.Note;
 import com.dfernandezyopla.PianoReminder.Game.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +21,16 @@ public class QuestionController {
 
     @GetMapping("/history")
     public List<HistoryQuestion> getAllHistoryQuestions() {
-        return questionService.findAllHistoryQuestions();
+        return questionService.getHistoryQuestions();
+    }
+
+    @GetMapping("/notes")
+    public List<Note> getAllNotes() {
+        return questionService.getNotes();
+    }
+
+    @PostMapping("/notes")
+    public Note createNote(@RequestBody Note note) {
+        return questionService.createNote(note);
     }
 }
