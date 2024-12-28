@@ -2,11 +2,6 @@ package com.dfernandezyopla.PianoReminder.Game.Entities;
 
 import jakarta.persistence.*;
 
-enum Clef {
-    TREBLE,
-    BASS
-}
-
 enum Octave {
     OCT1,
     OCT2,
