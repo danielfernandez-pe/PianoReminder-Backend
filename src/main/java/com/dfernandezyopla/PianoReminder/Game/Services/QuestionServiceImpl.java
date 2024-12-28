@@ -52,6 +52,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Chord createChord(ChordRequestDTO chordDTO) {
+        // TODO: throw an error if one of the IDs is not found in the DB.
         Set<Note> notes = new HashSet<>(noteRepository.findAllById(chordDTO.getNoteIds()));
         Chord chord = new Chord();
         chord.setClef(chordDTO.getClef());
