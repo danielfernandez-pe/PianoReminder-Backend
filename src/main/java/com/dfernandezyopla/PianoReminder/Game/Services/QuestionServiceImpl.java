@@ -1,5 +1,6 @@
 package com.dfernandezyopla.PianoReminder.Game.Services;
 
+import com.dfernandezyopla.PianoReminder.Exceptions.NoteNotFoundException;
 import com.dfernandezyopla.PianoReminder.Game.DTOs.ChordRequestDTO;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Chord;
 import com.dfernandezyopla.PianoReminder.Game.Entities.HistoryQuestion;
@@ -10,9 +11,7 @@ import com.dfernandezyopla.PianoReminder.Game.Repositories.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -52,8 +51,14 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Chord createChord(ChordRequestDTO chordDTO) {
-        // TODO: throw an error if one of the IDs is not found in the DB.
-        Set<Note> notes = new HashSet<>(noteRepository.findAllById(chordDTO.getNoteIds()));
+        Set<Note> notes = new HashSet<>();
+
+        for (Long noteId : chordDTO.getNoteIds()) {
+            Note note = noteRepository.findById(noteId)
+                    .orElseThrow(() -> new NoteNotFoundException(String.format("Note id %s not found", noteId)));
+            notes.add(note);
+        }
+
         Chord chord = new Chord();
         chord.setClef(chordDTO.getClef());
         chord.setTitle(chordDTO.getTitle());
