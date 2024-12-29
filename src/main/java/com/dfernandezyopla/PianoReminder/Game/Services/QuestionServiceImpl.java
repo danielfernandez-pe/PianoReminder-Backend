@@ -1,5 +1,7 @@
 package com.dfernandezyopla.PianoReminder.Game.Services;
 
+import com.dfernandezyopla.PianoReminder.Exceptions.ChordNotFoundException;
+import com.dfernandezyopla.PianoReminder.Exceptions.HistoryQuestionNotFoundException;
 import com.dfernandezyopla.PianoReminder.Exceptions.NoteNotFoundException;
 import com.dfernandezyopla.PianoReminder.Game.DTOs.ChordRequestDTO;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Chord;
@@ -42,6 +44,21 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Chord> getChords() {
         return chordRepository.findAll();
+    }
+
+    @Override
+    public HistoryQuestion getHistoryQuestionById(Long id) {
+        return historyQuestionRepository.findById(id).orElseThrow(() -> new HistoryQuestionNotFoundException("History question not found"));
+    }
+
+    @Override
+    public Note getNoteById(Long id) {
+        return noteRepository.findById(id).orElseThrow(() -> new NoteNotFoundException("Note not found"));
+    }
+
+    @Override
+    public Chord getChordById(Long id) {
+        return chordRepository.findById(id).orElseThrow(() -> new ChordNotFoundException("Chord not found"));
     }
 
     @Override

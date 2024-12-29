@@ -37,6 +37,21 @@ public class QuestionController {
         return questionService.getChords();
     }
 
+    @GetMapping("/history/{id}")
+    public HistoryQuestion getHistoryQuestionById(@PathVariable("id") Long id) {
+        return questionService.getHistoryQuestionById(id);
+    }
+
+    @GetMapping("/notes/{id}")
+    public Note getNoteById(@PathVariable("id") Long id) {
+        return questionService.getNoteById(id);
+    }
+
+    @GetMapping("/chords/{id}")
+    public Chord getChordById(@PathVariable("id") Long id) {
+        return questionService.getChordById(id);
+    }
+
     @PostMapping("/notes")
     public Note createNote(@RequestBody Note note) {
         return questionService.createNote(note);

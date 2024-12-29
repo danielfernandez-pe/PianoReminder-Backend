@@ -12,4 +12,16 @@ public class ControllerExceptionHandler {
         CustomException error = new CustomException(ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ChordNotFoundException.class)
+    public ResponseEntity<CustomException> handleChordNotFoundException(ChordNotFoundException ex) {
+        CustomException error = new CustomException(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HistoryQuestionNotFoundException.class)
+    public ResponseEntity<CustomException> handleHistoryQuestionNotFoundException(HistoryQuestionNotFoundException ex) {
+        CustomException error = new CustomException(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }

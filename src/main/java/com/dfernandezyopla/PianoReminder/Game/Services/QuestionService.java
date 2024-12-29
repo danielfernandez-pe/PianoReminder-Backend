@@ -11,6 +11,9 @@ public interface QuestionService {
     List<HistoryQuestion> getHistoryQuestions();
     List<Note> getNotes();
     List<Chord> getChords();
+    HistoryQuestion getHistoryQuestionById(Long id);
+    Note getNoteById(Long id);
+    Chord getChordById(Long id);
     Note createNote(Note note);
     Chord createChord(ChordRequestDTO chord);
     void deleteNote(Long id);
