@@ -52,6 +52,11 @@ public class QuestionController {
         return questionService.getChordById(id);
     }
 
+    @PostMapping("/history")
+    public HistoryQuestion createHistoryQuestion(@RequestBody HistoryQuestion historyQuestion) {
+        return questionService.createHistoryQuestion(historyQuestion);
+    }
+
     @PostMapping("/notes")
     public Note createNote(@RequestBody Note note) {
         return questionService.createNote(note);
@@ -71,6 +76,12 @@ public class QuestionController {
     @DeleteMapping("/chords/{id}")
     public ResponseEntity<Void> deleteChord(@PathVariable("id") Long id) {
         questionService.deleteChord(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/history/{id}")
+    public ResponseEntity<Void> deleteHistoryQuestion(@PathVariable("id") Long id) {
+        questionService.deleteHistoryQuestion(id);
         return ResponseEntity.noContent().build();
     }
 }

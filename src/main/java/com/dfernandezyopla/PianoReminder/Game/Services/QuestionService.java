@@ -14,8 +14,10 @@ public interface QuestionService {
     HistoryQuestion getHistoryQuestionById(Long id);
     Note getNoteById(Long id);
     Chord getChordById(Long id);
+    HistoryQuestion createHistoryQuestion(HistoryQuestion historyQuestion);
     Note createNote(Note note);
     Chord createChord(ChordRequestDTO chord);
     void deleteNote(Long id);
     void deleteChord(Long id);
+    void deleteHistoryQuestion(Long id);
 }

@@ -62,6 +62,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public HistoryQuestion createHistoryQuestion(HistoryQuestion historyQuestion) {
+        return historyQuestionRepository.save(historyQuestion);
+    }
+
+    @Override
     public Note createNote(Note note) {
         return noteRepository.save(note);
     }
@@ -91,5 +96,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void deleteChord(Long id) {
         chordRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteHistoryQuestion(Long id) {
+        historyQuestionRepository.deleteById(id);
     }
 }
