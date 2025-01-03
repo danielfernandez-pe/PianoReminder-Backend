@@ -6,6 +6,7 @@ import com.dfernandezyopla.PianoReminder.Game.Entities.HistoryQuestion;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Note;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Sync.EntityToSync;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface QuestionService {
@@ -24,5 +25,5 @@ public interface QuestionService {
     Chord createChord(ChordRequestDTO chord);
     void deleteChord(Long id);
 
-    List<EntityToSync> getEntitiesToSync();
+    List<EntityToSync> getEntitiesToSync(Instant lastSynced);
 }

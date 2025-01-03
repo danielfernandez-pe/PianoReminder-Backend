@@ -19,6 +19,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -150,8 +151,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<EntityToSync> getEntitiesToSync() {
-        return entityToSyncRepository.findAll();
+    public List<EntityToSync> getEntitiesToSync(Instant lastSynced) {
+        return entityToSyncRepository.findAllWithModifiedDateAfter(lastSynced);
     }
 
     private void createEntityToSyncForCreation(Long entityId, EntityType entityType, SyncType syncType) {
