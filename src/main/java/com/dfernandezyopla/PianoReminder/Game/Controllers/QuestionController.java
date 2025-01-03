@@ -4,6 +4,7 @@ import com.dfernandezyopla.PianoReminder.Game.DTOs.ChordRequestDTO;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Chord;
 import com.dfernandezyopla.PianoReminder.Game.Entities.HistoryQuestion;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Note;
+import com.dfernandezyopla.PianoReminder.Game.Entities.Sync.EntityToSync;
 import com.dfernandezyopla.PianoReminder.Game.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,11 @@ public class QuestionController {
     @GetMapping("/chords/{id}")
     public Chord getChordById(@PathVariable("id") Long id) {
         return questionService.getChordById(id);
+    }
+
+    @GetMapping("sync")
+    public List<EntityToSync> getEntitiesToSync() {
+        return questionService.getEntitiesToSync();
     }
 
     @PostMapping("/history")

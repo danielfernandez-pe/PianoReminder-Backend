@@ -4,20 +4,25 @@ import com.dfernandezyopla.PianoReminder.Game.DTOs.ChordRequestDTO;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Chord;
 import com.dfernandezyopla.PianoReminder.Game.Entities.HistoryQuestion;
 import com.dfernandezyopla.PianoReminder.Game.Entities.Note;
+import com.dfernandezyopla.PianoReminder.Game.Entities.Sync.EntityToSync;
 
 import java.util.List;
 
 public interface QuestionService {
     List<HistoryQuestion> getHistoryQuestions();
-    List<Note> getNotes();
-    List<Chord> getChords();
     HistoryQuestion getHistoryQuestionById(Long id);
-    Note getNoteById(Long id);
-    Chord getChordById(Long id);
     HistoryQuestion createHistoryQuestion(HistoryQuestion historyQuestion);
-    Note createNote(Note note);
-    Chord createChord(ChordRequestDTO chord);
-    void deleteNote(Long id);
-    void deleteChord(Long id);
     void deleteHistoryQuestion(Long id);
+
+    List<Note> getNotes();
+    Note getNoteById(Long id);
+    Note createNote(Note note);
+    void deleteNote(Long id);
+
+    List<Chord> getChords();
+    Chord getChordById(Long id);
+    Chord createChord(ChordRequestDTO chord);
+    void deleteChord(Long id);
+
+    List<EntityToSync> getEntitiesToSync();
 }

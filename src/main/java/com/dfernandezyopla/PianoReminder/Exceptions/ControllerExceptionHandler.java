@@ -24,4 +24,10 @@ public class ControllerExceptionHandler {
         CustomException error = new CustomException(ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(EntityConstrainedException.class)
+    public ResponseEntity<CustomException> handleEntityConstrainedException(EntityConstrainedException ex) {
+        CustomException error = new CustomException(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }
