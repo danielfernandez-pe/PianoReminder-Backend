@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    private final HistoryQuestionRepository historyQuestionRepository;
-    private final NoteRepository noteRepository;
-    private final ChordRepository chordRepository;
-    private final EntityToSyncRepository entityToSyncRepository;
+    final private HistoryQuestionRepository historyQuestionRepository;
+    final private NoteRepository noteRepository;
+    final private ChordRepository chordRepository;
+    final private EntityToSyncRepository entityToSyncRepository;
 
     @Autowired
     public QuestionServiceImpl(HistoryQuestionRepository historyQuestionRepository,

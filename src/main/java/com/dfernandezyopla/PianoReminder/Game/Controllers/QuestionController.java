@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/questions")
 public class QuestionController {
 
-    private final QuestionService questionService;
+    final private QuestionService questionService;
 
     @Autowired
     public QuestionController(QuestionService questionService) {
