@@ -30,4 +30,10 @@ public class ControllerExceptionHandler {
         CustomException error = new CustomException(ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AuthFailException.class)
+    public ResponseEntity<CustomException> handleAuthFailException(AuthFailException ex) {
+        CustomException error = new CustomException(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
 }

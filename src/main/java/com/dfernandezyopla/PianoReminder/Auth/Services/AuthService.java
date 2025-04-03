@@ -3,6 +3,7 @@ package com.dfernandezyopla.PianoReminder.Auth.Services;
 import com.dfernandezyopla.PianoReminder.Auth.Entities.User;
 import com.dfernandezyopla.PianoReminder.Auth.JwtUtils.JwtTokenUtil;
 import com.dfernandezyopla.PianoReminder.Auth.Repositories.UserRepository;
+import com.dfernandezyopla.PianoReminder.Exceptions.AuthFailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,10 +33,10 @@ public class AuthService {
 
     public String authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new AuthFailException("Error with credentials"));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Invalid credentials");
+            throw new AuthFailException("Error with credentials");
         }
 
         return jwtTokenUtil.generateToken(email);
