@@ -1,9 +1,10 @@
 package com.dfernandezyopla.PianoReminder.Auth.Controllers;
 
 import com.dfernandezyopla.PianoReminder.Auth.DTOs.AuthRequestDTO;
-import com.dfernandezyopla.PianoReminder.Auth.DTOs.LoginResponseDTO;
+import com.dfernandezyopla.PianoReminder.Auth.DTOs.AuthResponseDTO;
 import com.dfernandezyopla.PianoReminder.Auth.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +19,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody AuthRequestDTO request) {
-        authService.registerUser(request.getEmail(), request.getPassword());
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody AuthRequestDTO request) {
+        String token = authService.registerUser(request.getEmail(), request.getPassword());
+        AuthResponseDTO response = new AuthResponseDTO();
+        response.setToken(token);
+        return new ResponseEntity<AuthResponseDTO>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO login(@RequestBody AuthRequestDTO request) {
+    public AuthResponseDTO login(@RequestBody AuthRequestDTO request) {
         String token = authService.authenticateUser(request.getEmail(), request.getPassword());
-        LoginResponseDTO response = new LoginResponseDTO();
+        AuthResponseDTO response = new AuthResponseDTO();
         response.setToken(token);
         return response;
     }

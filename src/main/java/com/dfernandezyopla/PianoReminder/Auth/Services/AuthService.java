@@ -5,8 +5,6 @@ import com.dfernandezyopla.PianoReminder.Auth.JwtUtils.JwtTokenUtil;
 import com.dfernandezyopla.PianoReminder.Auth.Repositories.UserRepository;
 import com.dfernandezyopla.PianoReminder.Exceptions.AuthFailException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +21,13 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String email, String password) {
+    public String registerUser(String email, String password) {
         String hashedPassword = passwordEncoder.encode(password);
         User user = new User();
         user.setEmail(email);
         user.setPassword(hashedPassword);
         userRepository.save(user);
+        return jwtTokenUtil.generateToken(email);
     }
 
     public String authenticateUser(String email, String password) {

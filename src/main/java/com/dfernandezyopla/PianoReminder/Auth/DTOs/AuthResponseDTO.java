@@ -1,6 +1,6 @@
 package com.dfernandezyopla.PianoReminder.Auth.DTOs;
 
-public class LoginResponseDTO {
+public class AuthResponseDTO {
     private String token;
 
     public String getToken() {
