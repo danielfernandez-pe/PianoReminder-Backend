@@ -1,6 +1,10 @@
 package com.dfernandezyopla.PianoReminder.Auth.Entities;
 
+import com.dfernandezyopla.PianoReminder.Game.Entities.GameSession;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -12,6 +16,9 @@ public class User {
     private String email;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GameSession> gameSessions = new ArrayList<>();
 
     public User() {
     }
@@ -38,5 +45,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<GameSession> getGameSessions() {
+        return gameSessions;
+    }
+
+    public void setGameSessions(List<GameSession> gameSessions) {
+        this.gameSessions = gameSessions;
     }
 }
