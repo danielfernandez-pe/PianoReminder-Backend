@@ -25,7 +25,7 @@ public class JwtTokenUtil {
 
     public String generateToken(String email) {
         Instant now = Instant.now();
-        Instant expiration = now.plusSeconds(3600);
+        Instant expiration = now.plusSeconds(3600); // in an hour
 
         return Jwts.builder()
                 .claims(Map.of(
