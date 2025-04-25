@@ -1,6 +1,7 @@
 package com.dfernandezyopla.PianoReminder.Auth.Services;
 
 import com.dfernandezyopla.PianoReminder.Auth.Entities.User;
+import com.dfernandezyopla.PianoReminder.Auth.Entities.UserToken;
 import com.dfernandezyopla.PianoReminder.Auth.JwtUtils.JwtTokenUtil;
 import com.dfernandezyopla.PianoReminder.Auth.Repositories.UserRepository;
 import com.dfernandezyopla.PianoReminder.Exceptions.AuthFailException;
@@ -21,16 +22,19 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String registerUser(String email, String password) {
+    public UserToken registerUser(String email, String password) {
         String hashedPassword = passwordEncoder.encode(password);
         User user = new User();
         user.setEmail(email);
         user.setPassword(hashedPassword);
-        userRepository.save(user);
-        return jwtTokenUtil.generateToken(email);
+        User savedUser = userRepository.save(user);
+        UserToken response = new UserToken();
+        response.setToken(jwtTokenUtil.generateToken(email));
+        response.setUser(savedUser);
+        return response;
     }
 
-    public String authenticateUser(String email, String password) {
+    public UserToken authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthFailException("Error with credentials"));
 
@@ -38,6 +42,13 @@ public class AuthService {
             throw new AuthFailException("Error with credentials");
         }
 
-        return jwtTokenUtil.generateToken(email);
+        UserToken response = new UserToken();
+        response.setToken(jwtTokenUtil.generateToken(email));
+        response.setUser(user);
+        return response;
+    }
+
+    public String generateToken(User user) {
+        return jwtTokenUtil.generateToken(user.getEmail());
     }
 }

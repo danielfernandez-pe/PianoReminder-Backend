@@ -19,10 +19,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
 
     final private JwtRequestFilter jwtRequestFilter;
+    final private JwtAuthenticationEntryPoint entryPoint;
 
     @Autowired
-    public WebSecurityConfig(JwtRequestFilter jwtRequestFilter) {
+    public WebSecurityConfig(JwtRequestFilter jwtRequestFilter, JwtAuthenticationEntryPoint entryPoint) {
         this.jwtRequestFilter = jwtRequestFilter;
+        this.entryPoint = entryPoint;
     }
 
     @Bean
@@ -33,6 +35,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(entryPoint))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

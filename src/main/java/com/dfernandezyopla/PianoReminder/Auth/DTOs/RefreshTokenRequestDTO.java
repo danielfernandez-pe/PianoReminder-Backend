@@ -1,16 +1,12 @@
 package com.dfernandezyopla.PianoReminder.Auth.DTOs;
 
-public class AuthResponseDTO {
-    private String token;
-    private String refreshToken;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
+public class RefreshTokenRequestDTO {
+    @Valid
+    @NotBlank
+    String refreshToken;
 
     public String getRefreshToken() {
         return refreshToken;
